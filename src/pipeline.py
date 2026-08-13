@@ -13,7 +13,7 @@ class LightningRAG:
     """
     def __init__(self, 
                  max_chunk_size: int = 1000, 
-                 embedding_model: str = "all-MiniLM-L6-v2",
+                 embedding_model: str = "gemini-embedding-2",
                  llm_model: str = "gemini-2.5-flash"):
         
         self.chunker = Chunker(max_chunk_size=max_chunk_size)

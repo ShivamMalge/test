@@ -6,6 +6,29 @@ class Chunker:
         self.max_chunk_size = max_chunk_size
         self.min_chunk_size = min_chunk_size
 
+    def _split_into_sentences(self, text: str) -> List[str]:
+        import re
+        # Split on common sentence boundaries (period, question, exclamation) followed by space
+        # Also split on double newlines
+        parts = re.split(r'(\n\n|(?<=[.!?])\s+)', text)
+        
+        # re.split with capture groups returns the delimiters too. Recombine them.
+        sentences = []
+        current = ""
+        for part in parts:
+            if part in ("\n\n", " ") or re.match(r'^\s+$', part):
+                current += part
+            else:
+                if current:
+                    sentences.append(current)
+                current = part
+        if current:
+            sentences.append(current)
+        
+        # Clean up
+        sentences = [s.strip() for s in sentences if s.strip()]
+        return sentences
+
     def chunk_document(self, parsed_doc: Dict[str, Any], source_name: str) -> List[Dict[str, Any]]:
         """
         Converts a parsed document into a list of retrieval-ready chunks.
@@ -20,6 +43,17 @@ class Chunker:
             current_chunk_text = ""
             current_section = None
             
+            def finalize_chunk():
+                nonlocal current_chunk_text
+                if current_chunk_text and len(current_chunk_text) >= self.min_chunk_size:
+                    chunks.append({
+                        "text": current_chunk_text.strip(),
+                        "source": source_name,
+                        "page": page_num,
+                        "section": current_section
+                    })
+                current_chunk_text = ""
+
             for block in blocks:
                 block_text = block.get("text", "").strip()
                 block_section = block.get("section_id")
@@ -27,64 +61,45 @@ class Chunker:
                 if not block_text:
                     continue
                     
-                # If section changes or we exceed max size, finalize the current chunk
-                if current_chunk_text and (block_section != current_section or len(current_chunk_text) + len(block_text) > self.max_chunk_size):
-                    if len(current_chunk_text) >= self.min_chunk_size:
-                        chunks.append({
-                            "text": current_chunk_text,
-                            "source": source_name,
-                            "page": page_num,
-                            "section": current_section
-                        })
-                    current_chunk_text = ""
+                # If section changes, finalize the current chunk
+                if current_chunk_text and block_section != current_section:
+                    finalize_chunk()
                 
-                # If a single block is larger than max_chunk_size, we need to split it
-                if len(block_text) > self.max_chunk_size:
-                    # Finalize current if any
-                    if current_chunk_text and len(current_chunk_text) >= self.min_chunk_size:
-                        chunks.append({
-                            "text": current_chunk_text,
-                            "source": source_name,
-                            "page": page_num,
-                            "section": current_section
-                        })
-                        current_chunk_text = ""
-                    
-                    # Split the large block
-                    words = block_text.split()
-                    temp_text = ""
-                    for word in words:
-                        if len(temp_text) + len(word) + 1 > self.max_chunk_size:
-                            if len(temp_text) >= self.min_chunk_size:
-                                chunks.append({
-                                    "text": temp_text.strip(),
-                                    "source": source_name,
-                                    "page": page_num,
-                                    "section": block_section
-                                })
-                            temp_text = word + " "
+                current_section = block_section
+                
+                # Check if adding the whole block exceeds max size
+                if len(current_chunk_text) + len(block_text) > self.max_chunk_size:
+                    # Finalize current if it's substantial
+                    if len(current_chunk_text) > self.max_chunk_size // 2:
+                        finalize_chunk()
+                        
+                    # Split block by sentences
+                    sentences = self._split_into_sentences(block_text)
+                    for sentence in sentences:
+                        if len(current_chunk_text) + len(sentence) > self.max_chunk_size:
+                            finalize_chunk()
+                            
+                        # If a single sentence is still larger than max_chunk_size, 
+                        # we fall back to splitting by words to avoid dropping data.
+                        if len(sentence) > self.max_chunk_size:
+                            words = sentence.split()
+                            for word in words:
+                                if len(current_chunk_text) + len(word) + 1 > self.max_chunk_size:
+                                    finalize_chunk()
+                                current_chunk_text += (word + " ")
                         else:
-                            temp_text += word + " "
-                    
-                    if temp_text.strip():
-                        current_chunk_text = temp_text.strip()
-                        current_section = block_section
+                            if current_chunk_text:
+                                current_chunk_text += " " + sentence
+                            else:
+                                current_chunk_text = sentence
                 else:
                     if current_chunk_text:
                         current_chunk_text += "\n\n" + block_text
                     else:
                         current_chunk_text = block_text
-                    current_section = block_section
             
             # End of page, finalize remaining text
-            if current_chunk_text and len(current_chunk_text) >= self.min_chunk_size:
-                chunks.append({
-                    "text": current_chunk_text,
-                    "source": source_name,
-                    "page": page_num,
-                    "section": current_section
-                })
-                current_chunk_text = ""
+            finalize_chunk()
 
         # Add chunk IDs
         for idx, chunk in enumerate(chunks):

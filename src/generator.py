@@ -37,18 +37,35 @@ class Generator:
         
         user_prompt = f"Context:\n\n{context_str}\n\nQuestion: {question}"
         
-        try:
-            response = self.client.models.generate_content(
-                model=self.model,
-                contents=user_prompt,
-                config=genai.types.GenerateContentConfig(
-                    system_instruction=system_prompt,
-                    temperature=0.0
+        import time
+        retries = 3
+        answer_text = ""
+        while retries > 0:
+            try:
+                response = self.client.models.generate_content(
+                    model=self.model,
+                    contents=user_prompt,
+                    config=genai.types.GenerateContentConfig(
+                        system_instruction=system_prompt,
+                        temperature=0.0
+                    )
                 )
-            )
-            answer_text = response.text
-        except Exception as e:
-            answer_text = f"Error calling LLM: {str(e)}"
+                answer_text = response.text
+                break
+            except Exception as e:
+                print(f"Error calling LLM (retry {4-retries}/3): {str(e)}")
+                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                    import re
+                    match = re.search(r'retry in ([\d\.]+)s', str(e))
+                    delay = float(match.group(1)) + 5 if match else 65
+                    print(f"Sleeping for {delay} seconds...")
+                    time.sleep(delay)
+                else:
+                    time.sleep(10)
+                retries -= 1
+        
+        if not answer_text:
+            answer_text = "Failed to generate answer after multiple retries."
             
         # Return the generated answer along with the exact source metadata 
         # so provenance is never lost.

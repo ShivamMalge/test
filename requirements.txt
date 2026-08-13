@@ -5,3 +5,4 @@ openai
 google-genai
 pytest
 python-dotenv
+rank-bm25

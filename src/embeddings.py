@@ -1,23 +1,19 @@
 import os
 from typing import List, Dict, Any, Tuple
 import numpy as np
+from google import genai
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class EmbeddingPipeline:
-    def __init__(self, model_name: str = "all-MiniLM-L6-v2"):
+    def __init__(self, model_name: str = "gemini-embedding-2"):
         """
-        Initializes the embedding pipeline.
-        We default to 'all-MiniLM-L6-v2' as it is a lightweight, fast, and 
-        capable model suitable for local RAG testing.
+        Initializes the embedding pipeline using Google Gemini.
         """
         self.model_name = model_name
-        # Lazy load to avoid slowing down import
-        self.model = None
-
-    def _load_model(self):
-        if self.model is None:
-            # We import here so we don't pay the import cost if we don't embed
-            from sentence_transformers import SentenceTransformer
-            self.model = SentenceTransformer(self.model_name)
+        api_key = os.environ.get("GEMINI_API_KEY")
+        self.client = genai.Client(api_key=api_key)
 
     def embed_chunks(self, chunks: List[Dict[str, Any]]) -> Tuple[np.ndarray, List[Dict[str, Any]]]:
         """
@@ -29,17 +25,39 @@ class EmbeddingPipeline:
         Returns:
             A tuple of (embeddings, chunks) where embeddings is a numpy array
             of shape (num_chunks, embedding_dim), and chunks is the list of 
-            the original chunks in the exact same deterministic order, maintaining 
-            the vector-to-chunk mapping.
+            the original chunks.
         """
         if not chunks:
             return np.array([]), []
             
-        self._load_model()
-        
         texts = [chunk["text"] for chunk in chunks]
         
-        # generate embeddings
-        embeddings = self.model.encode(texts, convert_to_numpy=True)
+        # Call the Google GenAI embedding API
+        # Batch to handle API limits
+        import time
+        embeddings_list = []
+        batch_size = 50 # smaller batch
         
+        for i in range(0, len(texts), batch_size):
+            batch_texts = texts[i:i + batch_size]
+            retries = 3
+            while retries > 0:
+                try:
+                    response = self.client.models.embed_content(
+                        model=self.model_name,
+                        contents=batch_texts
+                    )
+                    for emb in response.embeddings:
+                        embeddings_list.append(emb.values)
+                    break # Success, exit retry loop
+                except Exception as e:
+                    print(f"Rate limit or error: {e}. Retrying in 45s...")
+                    time.sleep(45)
+                    retries -= 1
+            if retries == 0:
+                print("Failed to embed chunk batch after retries.")
+                return np.array([]), []
+                
+        embeddings = np.array(embeddings_list, dtype=np.float32)
+            
         return embeddings, chunks
