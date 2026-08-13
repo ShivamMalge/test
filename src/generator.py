@@ -1,15 +1,16 @@
 import os
 from typing import List, Dict, Any
-from openai import OpenAI
+from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
 
 class Generator:
-    def __init__(self, model: str = "gpt-3.5-turbo"):
+    def __init__(self, model: str = "gemini-2.5-flash"):
         self.model = model
-        # We assume the OPENAI_API_KEY environment variable is set
-        self.client = OpenAI()
+        # We assume the GEMINI_API_KEY environment variable is set
+        api_key = os.environ.get("GEMINI_API_KEY")
+        self.client = genai.Client(api_key=api_key)
         
     def generate(self, question: str, retrieved_chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
@@ -37,15 +38,15 @@ class Generator:
         user_prompt = f"Context:\n\n{context_str}\n\nQuestion: {question}"
         
         try:
-            response = self.client.chat.completions.create(
+            response = self.client.models.generate_content(
                 model=self.model,
-                messages=[
-                    {"role": "system", "content": system_prompt},
-                    {"role": "user", "content": user_prompt}
-                ],
-                temperature=0.0
+                contents=user_prompt,
+                config=genai.types.GenerateContentConfig(
+                    system_instruction=system_prompt,
+                    temperature=0.0
+                )
             )
-            answer_text = response.choices[0].message.content
+            answer_text = response.text
         except Exception as e:
             answer_text = f"Error calling LLM: {str(e)}"
             

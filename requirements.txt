@@ -2,5 +2,6 @@ lightningparse
 sentence-transformers
 faiss-cpu
 openai
+google-genai
 pytest
 python-dotenv

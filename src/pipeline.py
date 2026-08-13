@@ -14,7 +14,7 @@ class LightningRAG:
     def __init__(self, 
                  max_chunk_size: int = 1000, 
                  embedding_model: str = "all-MiniLM-L6-v2",
-                 llm_model: str = "gpt-3.5-turbo"):
+                 llm_model: str = "gemini-2.5-flash"):
         
         self.chunker = Chunker(max_chunk_size=max_chunk_size)
         self.embedding_pipeline = EmbeddingPipeline(model_name=embedding_model)

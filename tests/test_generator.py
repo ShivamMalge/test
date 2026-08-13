@@ -5,8 +5,8 @@ import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Set a dummy key for testing so OpenAI doesn't crash on initialization
-if "OPENAI_API_KEY" not in os.environ:
-    os.environ["OPENAI_API_KEY"] = "dummy"
+if "OPENROUTER_API_KEY" not in os.environ:
+    os.environ["OPENROUTER_API_KEY"] = "dummy"
 
 from src.generator import Generator
 
