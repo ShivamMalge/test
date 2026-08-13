@@ -3,3 +3,4 @@ sentence-transformers
 faiss-cpu
 openai
 pytest
+python-dotenv

@@ -1,6 +1,9 @@
 import os
 from typing import List, Dict, Any
 from openai import OpenAI
+from dotenv import load_dotenv
+
+load_dotenv()
 
 class Generator:
     def __init__(self, model: str = "gpt-3.5-turbo"):
