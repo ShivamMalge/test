@@ -56,15 +56,30 @@ class Generator:
                         {"role": "system", "content": system_prompt},
                         {"role": "user", "content": user_prompt}
                     ],
-                    temperature=0.0
+                    temperature=0.0,
+                    max_tokens=1000
                 )
                 answer_text = response.choices[0].message.content
                 break
             except Exception as e:
                 print(f"Error calling LLM (retry {retries}): {str(e)}")
-                if "429" in str(e) or "rate limit" in str(e).lower():
+                if "402" in str(e):
                     if len(self.api_keys) > 1:
-                        print("Key exhausted. Switching to next key...")
+                        print("Key exhausted (402). Switching to next key...")
+                        self.current_key_idx = (self.current_key_idx + 1) % len(self.api_keys)
+                        self.client = OpenAI(
+                            base_url="https://openrouter.ai/api/v1",
+                            api_key=self.api_keys[self.current_key_idx],
+                        )
+                        time.sleep(2)
+                        retries -= 1
+                        continue
+                    else:
+                        print("Insufficient credits on all keys (402). Aborting.")
+                        break
+                elif "429" in str(e) or "rate limit" in str(e).lower():
+                    if len(self.api_keys) > 1:
+                        print("Key rate limited. Switching to next key...")
                         self.current_key_idx = (self.current_key_idx + 1) % len(self.api_keys)
                         self.client = OpenAI(
                             base_url="https://openrouter.ai/api/v1",
