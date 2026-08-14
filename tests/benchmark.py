@@ -128,6 +128,10 @@ def main():
                     doc = lightningparse.parse_pdf(pdf_path)
                     if isinstance(doc, str): doc = json.loads(doc)
                     pages = len(doc.get("pages", []))
+                    if "metadata" in doc and "warnings" in doc["metadata"]:
+                        warnings = doc["metadata"]["warnings"]
+                        if warnings:
+                            print(f"    [!] Warnings for {pdf_path}: {warnings}")
                     
                 rag.ingest_document(pdf_path)
             except Exception as e:
