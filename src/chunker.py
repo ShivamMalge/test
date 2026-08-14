@@ -61,6 +61,13 @@ class Chunker:
                 if not block_text:
                     continue
                     
+                # lightningparse v3.1.0 sometimes drops spaces in text extraction
+                # We use wordninja to probabilistically restore spaces if it looks like a giant concatenated string
+                import wordninja
+                # If average word length is suspiciously high (e.g., > 15 chars), it's likely missing spaces
+                if len(block_text.split()) > 0 and len(block_text) / len(block_text.split()) > 15:
+                    block_text = " ".join(wordninja.split(block_text))
+                    
                 # If section changes, finalize the current chunk
                 if current_chunk_text and block_section != current_section:
                     finalize_chunk()

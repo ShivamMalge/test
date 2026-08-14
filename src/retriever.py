@@ -1,8 +1,14 @@
 import faiss
 import numpy as np
+import re
 from typing import List, Dict, Any
-from rank_bm25 import BM25Okapi
+from rank_bm25 import BM25Plus
 from src.embeddings import EmbeddingPipeline
+
+def _tokenize(text: str) -> List[str]:
+    # Remove punctuation and split
+    text = re.sub(r'[^\w\s]', '', text.lower())
+    return text.split()
 
 class Retriever:
     def __init__(self, embedding_pipeline: EmbeddingPipeline):
@@ -20,13 +26,18 @@ class Retriever:
             
         dimension = embeddings.shape[1]
         
-        # Initialize FAISS index
+        # Initialize FAISS index for inner product (cosine similarity for normalized vectors)
+        # We assume embeddings are normalized by SentenceTransformer.
+        # If not perfectly normalized, IP still works better for ranking semantic similarity than raw L2 sometimes.
+        # But we'll use IndexFlatL2 to be safe since we already tested it. 
+        # Wait, actually L2 works fine, let's keep L2 to avoid breaking existing distance assumptions, 
+        # but the scores sorting is what matters. 
         self.index = faiss.IndexFlatL2(dimension)
         self.index.add(embeddings)
         
-        # Initialize BM25 index
-        tokenized_corpus = [chunk["text"].lower().split() for chunk in chunks]
-        self.bm25 = BM25Okapi(tokenized_corpus)
+        # Initialize BM25 index using BM25Plus to avoid negative IDFs
+        tokenized_corpus = [_tokenize(chunk["text"]) for chunk in chunks]
+        self.bm25 = BM25Plus(tokenized_corpus)
         
         self.chunks = chunks
         
@@ -49,7 +60,7 @@ class Retriever:
             faiss_ranks[idx] = rank + 1
             
         # 2. Keyword Search (BM25)
-        tokenized_query = query.lower().split()
+        tokenized_query = _tokenize(query)
         bm25_scores = self.bm25.get_scores(tokenized_query)
         # Get top k indices for BM25
         bm25_indices = np.argsort(bm25_scores)[::-1][:k]

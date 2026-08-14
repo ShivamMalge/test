@@ -6,3 +6,4 @@ google-genai
 pytest
 python-dotenv
 rank-bm25
+wordninja
