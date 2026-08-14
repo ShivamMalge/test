@@ -1,20 +1,24 @@
 import os
 from typing import List, Dict, Any
-from google import genai
+from openai import OpenAI
 from dotenv import load_dotenv
 
 load_dotenv()
 
 class Generator:
-    def __init__(self, model: str = "gemini-2.5-flash"):
+    def __init__(self, model: str = "google/gemini-2.5-flash"):
         self.model = model
-        # We assume the GEMINI_API_KEY environment variable is set
-        api_keys_str = os.environ.get("GEMINI_API_KEY", "")
+        # Support multiple OpenRouter API keys if needed
+        api_keys_str = os.environ.get("OPENROUTER_API_KEY", "")
         self.api_keys = [k.strip() for k in api_keys_str.split(",") if k.strip()]
         self.current_key_idx = 0
         if not self.api_keys:
-            raise ValueError("GEMINI_API_KEY environment variable not set.")
-        self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
+            raise ValueError("OPENROUTER_API_KEY environment variable not set.")
+        
+        self.client = OpenAI(
+            base_url="https://openrouter.ai/api/v1",
+            api_key=self.api_keys[self.current_key_idx],
+        )
         
     def generate(self, question: str, retrieved_chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
@@ -46,32 +50,32 @@ class Generator:
         answer_text = ""
         while retries > 0:
             try:
-                response = self.client.models.generate_content(
+                response = self.client.chat.completions.create(
                     model=self.model,
-                    contents=user_prompt,
-                    config=genai.types.GenerateContentConfig(
-                        system_instruction=system_prompt,
-                        temperature=0.0
-                    )
+                    messages=[
+                        {"role": "system", "content": system_prompt},
+                        {"role": "user", "content": user_prompt}
+                    ],
+                    temperature=0.0
                 )
-                answer_text = response.text
+                answer_text = response.choices[0].message.content
                 break
             except Exception as e:
                 print(f"Error calling LLM (retry {retries}): {str(e)}")
-                if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                if "429" in str(e) or "rate limit" in str(e).lower():
                     if len(self.api_keys) > 1:
                         print("Key exhausted. Switching to next key...")
                         self.current_key_idx = (self.current_key_idx + 1) % len(self.api_keys)
-                        self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
+                        self.client = OpenAI(
+                            base_url="https://openrouter.ai/api/v1",
+                            api_key=self.api_keys[self.current_key_idx],
+                        )
                         time.sleep(2)
                         retries -= 1
                         continue
                     else:
-                        import re
-                        match = re.search(r'retry in ([\d\.]+)s', str(e))
-                        delay = float(match.group(1)) + 5 if match else 65
-                        print(f"Sleeping for {delay} seconds...")
-                        time.sleep(delay)
+                        print("Rate limit hit. Sleeping for 10 seconds...")
+                        time.sleep(10)
                 else:
                     time.sleep(10)
                 retries -= 1
