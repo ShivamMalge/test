@@ -2,6 +2,7 @@ import os
 from typing import Dict, Any
 
 from src.parser import parse_document
+from src.parser_pypdf import parse_document_pypdf
 from src.chunker import Chunker
 from src.embeddings import EmbeddingPipeline
 from src.retriever import Retriever
@@ -14,12 +15,14 @@ class LightningRAG:
     def __init__(self, 
                  max_chunk_size: int = 1000, 
                  embedding_model: str = "all-MiniLM-L6-v2",
-                 llm_model: str = "google/gemini-2.5-flash"):
+                 llm_model: str = "google/gemini-2.5-flash",
+                 parser_type: str = "lightningparse"):
         
         self.chunker = Chunker(max_chunk_size=max_chunk_size)
         self.embedding_pipeline = EmbeddingPipeline(model_name=embedding_model)
         self.retriever = Retriever(self.embedding_pipeline)
         self.generator = Generator(model=llm_model)
+        self.parser_type = parser_type
         
         self.indexed_docs = set()
 
@@ -31,8 +34,11 @@ class LightningRAG:
             print(f"Document {pdf_path} is already indexed.")
             return
             
-        print(f"Ingesting {pdf_path}...")
-        parsed_doc = parse_document(pdf_path)
+        print(f"Ingesting {pdf_path} using {self.parser_type}...")
+        if self.parser_type == "pypdf":
+            parsed_doc = parse_document_pypdf(pdf_path)
+        else:
+            parsed_doc = parse_document(pdf_path)
         
         print("Chunking...")
         chunks = self.chunker.chunk_document(parsed_doc, pdf_path)

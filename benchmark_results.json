@@ -1,0 +1,18 @@
+{
+  "pypdf": {
+    "parsing_latency": "6.80s",
+    "pages_per_sec": "2.94",
+    "extraction_failures": "0",
+    "recall_at_5": "6/10",
+    "answer_correctness": "4/10",
+    "citation_correctness": "6/10"
+  },
+  "lightningparse": {
+    "parsing_latency": "95.00s",
+    "pages_per_sec": "0.21",
+    "extraction_failures": "0",
+    "recall_at_5": "6/10",
+    "answer_correctness": "5/10",
+    "citation_correctness": "6/10"
+  }
+}

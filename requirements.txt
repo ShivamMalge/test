@@ -7,3 +7,4 @@ pytest
 python-dotenv
 rank-bm25
 wordninja
+pypdf
