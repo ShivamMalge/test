@@ -12,8 +12,12 @@ class EmbeddingPipeline:
         Initializes the embedding pipeline using Google Gemini.
         """
         self.model_name = model_name
-        api_key = os.environ.get("GEMINI_API_KEY")
-        self.client = genai.Client(api_key=api_key)
+        api_keys_str = os.environ.get("GEMINI_API_KEY", "")
+        self.api_keys = [k.strip() for k in api_keys_str.split(",") if k.strip()]
+        self.current_key_idx = 0
+        if not self.api_keys:
+            raise ValueError("GEMINI_API_KEY environment variable not set.")
+        self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
 
     def embed_chunks(self, chunks: List[Dict[str, Any]]) -> Tuple[np.ndarray, List[Dict[str, Any]]]:
         """
@@ -40,7 +44,7 @@ class EmbeddingPipeline:
         
         for i in range(0, len(texts), batch_size):
             batch_texts = texts[i:i + batch_size]
-            retries = 3
+            retries = max(3, len(self.api_keys) * 2)
             while retries > 0:
                 try:
                     response = self.client.models.embed_content(
@@ -51,8 +55,20 @@ class EmbeddingPipeline:
                         embeddings_list.append(emb.values)
                     break # Success, exit retry loop
                 except Exception as e:
-                    print(f"Rate limit or error: {e}. Retrying in 45s...")
-                    time.sleep(45)
+                    if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
+                        if len(self.api_keys) > 1:
+                            print("Embedding key exhausted. Switching to next key...")
+                            self.current_key_idx = (self.current_key_idx + 1) % len(self.api_keys)
+                            self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
+                            time.sleep(2)
+                            retries -= 1
+                            continue
+                        else:
+                            print(f"Rate limit or error: {e}. Retrying in 45s...")
+                            time.sleep(45)
+                    else:
+                        print(f"Error: {e}. Retrying in 10s...")
+                        time.sleep(10)
                     retries -= 1
             if retries == 0:
                 print("Failed to embed chunk batch after retries.")

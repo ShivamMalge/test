@@ -9,8 +9,12 @@ class Generator:
     def __init__(self, model: str = "gemini-2.5-flash"):
         self.model = model
         # We assume the GEMINI_API_KEY environment variable is set
-        api_key = os.environ.get("GEMINI_API_KEY")
-        self.client = genai.Client(api_key=api_key)
+        api_keys_str = os.environ.get("GEMINI_API_KEY", "")
+        self.api_keys = [k.strip() for k in api_keys_str.split(",") if k.strip()]
+        self.current_key_idx = 0
+        if not self.api_keys:
+            raise ValueError("GEMINI_API_KEY environment variable not set.")
+        self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
         
     def generate(self, question: str, retrieved_chunks: List[Dict[str, Any]]) -> Dict[str, Any]:
         """
@@ -38,7 +42,7 @@ class Generator:
         user_prompt = f"Context:\n\n{context_str}\n\nQuestion: {question}"
         
         import time
-        retries = 3
+        retries = max(3, len(self.api_keys) * 2)
         answer_text = ""
         while retries > 0:
             try:
@@ -53,13 +57,21 @@ class Generator:
                 answer_text = response.text
                 break
             except Exception as e:
-                print(f"Error calling LLM (retry {4-retries}/3): {str(e)}")
+                print(f"Error calling LLM (retry {retries}): {str(e)}")
                 if "429" in str(e) or "RESOURCE_EXHAUSTED" in str(e):
-                    import re
-                    match = re.search(r'retry in ([\d\.]+)s', str(e))
-                    delay = float(match.group(1)) + 5 if match else 65
-                    print(f"Sleeping for {delay} seconds...")
-                    time.sleep(delay)
+                    if len(self.api_keys) > 1:
+                        print("Key exhausted. Switching to next key...")
+                        self.current_key_idx = (self.current_key_idx + 1) % len(self.api_keys)
+                        self.client = genai.Client(api_key=self.api_keys[self.current_key_idx])
+                        time.sleep(2)
+                        retries -= 1
+                        continue
+                    else:
+                        import re
+                        match = re.search(r'retry in ([\d\.]+)s', str(e))
+                        delay = float(match.group(1)) + 5 if match else 65
+                        print(f"Sleeping for {delay} seconds...")
+                        time.sleep(delay)
                 else:
                     time.sleep(10)
                 retries -= 1
