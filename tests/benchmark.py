@@ -102,49 +102,65 @@ def main():
         print(f"\n{'='*50}\nBenchmarking {parser_type}\n{'='*50}")
         rag = LightningRAG(parser_type=parser_type)
         
+        results[parser_type] = {
+            "aggregate": {},
+            "synthetic": {},
+            "vtu": {}
+        }
+        
         total_latency = 0
         total_pages = 0
-        extraction_failures = 0
         
         # 1. Measure Latency & Pages/Sec
+        doc_latencies = {}
+        doc_pages = {}
         for pdf_path in pdfs:
             print(f"Measuring {pdf_path}...")
             start_time = timeit.default_timer()
+            pages = 0
             try:
-                # Need to grab total pages to calculate pages/sec
                 if parser_type == "pypdf":
                     import pypdf
                     reader = pypdf.PdfReader(pdf_path)
-                    total_pages += len(reader.pages)
+                    pages = len(reader.pages)
                 else:
                     import lightningparse
                     doc = lightningparse.parse_pdf(pdf_path)
                     if isinstance(doc, str): doc = json.loads(doc)
-                    total_pages += len(doc.get("pages", []))
+                    pages = len(doc.get("pages", []))
                     
                 rag.ingest_document(pdf_path)
             except Exception as e:
                 print(f"Extraction failed for {pdf_path}: {e}")
-                extraction_failures += 1
                 
             latency = timeit.default_timer() - start_time
+            
+            doc_latencies[pdf_path] = latency
+            doc_pages[pdf_path] = pages
+            
             total_latency += latency
+            total_pages += pages
             print(f"Latency: {latency:.2f}s")
             
-        pages_per_sec = total_pages / total_latency if total_latency > 0 else 0
+            # Save individual doc metrics
+            key = "synthetic" if "synthetic" in pdf_path else "vtu"
+            results[parser_type][key]["parsing_latency"] = f"{latency:.2f}s"
+            results[parser_type][key]["pages_per_sec"] = f"{pages / latency:.2f}" if latency > 0 else "0"
+            
         
         # 2. Run Evaluations
         print(f"\nEvaluating VTU PDF with {parser_type}...")
         vtu_metrics = evaluate_questions(rag, pdfs[1], vtu_questions)
+        results[parser_type]["vtu"].update(vtu_metrics)
         
         print(f"\nEvaluating Synthetic PDF with {parser_type}...")
         sync_metrics = evaluate_questions(rag, pdfs[0], synthetic_questions)
+        results[parser_type]["synthetic"].update(sync_metrics)
         
-        # Combine metrics (simple string aggregation for the table)
-        results[parser_type] = {
+        # Combine aggregate metrics
+        results[parser_type]["aggregate"] = {
             "parsing_latency": f"{total_latency:.2f}s",
-            "pages_per_sec": f"{pages_per_sec:.2f}",
-            "extraction_failures": str(extraction_failures),
+            "pages_per_sec": f"{total_pages / total_latency:.2f}" if total_latency > 0 else "0",
             "recall_at_5": f"{int(vtu_metrics['recall_at_5'][0]) + int(sync_metrics['recall_at_5'][0])}/10",
             "answer_correctness": f"{int(vtu_metrics['answer_correctness'][0]) + int(sync_metrics['answer_correctness'][0])}/10",
             "citation_correctness": f"{int(vtu_metrics['citation_correctness'][0]) + int(sync_metrics['citation_correctness'][0])}/10",
