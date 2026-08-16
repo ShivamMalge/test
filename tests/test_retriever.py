@@ -43,6 +43,28 @@ def test_retriever_basic():
     
     print("test_retriever_basic passed!")
 
+
+def test_retriever_incremental():
+    """A second ingest must extend the index, not evict the first document."""
+    pipeline = EmbeddingPipeline()
+    retriever = Retriever(pipeline)
+
+    doc_a = [{"chunk_id": "a1", "text": "The capital of France is Paris.", "source": "geo.pdf", "page": 1, "section": "s1"}]
+    doc_b = [{"chunk_id": "b1", "text": "Machine learning uses neural networks.", "source": "ml.pdf", "page": 1, "section": "s2"}]
+
+    for doc in (doc_a, doc_b):
+        embeddings, chunks = pipeline.embed_chunks(doc)
+        retriever.add_documents(embeddings, chunks)
+
+    assert retriever.index.ntotal == 2, f"Expected 2 vectors, got {retriever.index.ntotal}"
+    assert {c["source"] for c in retriever.chunks} == {"geo.pdf", "ml.pdf"}
+
+    # Both documents remain reachable after the second ingest.
+    assert retriever.search("What is the capital of France?", top_k=1)[0]["source"] == "geo.pdf"
+    assert retriever.search("neural networks", top_k=1)[0]["source"] == "ml.pdf"
+
+    print("test_retriever_incremental passed!")
+
 def test_retriever_real_document():
     pdf_path = "data/synthetic/lightningparse_test_document_TRUE_2COL.pdf"
     if not os.path.exists(pdf_path):
@@ -78,4 +100,5 @@ def test_retriever_real_document():
 
 if __name__ == "__main__":
     test_retriever_basic()
+    test_retriever_incremental()
     test_retriever_real_document()

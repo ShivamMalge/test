@@ -1,0 +1,1530 @@
+{
+  "pypdf": [
+    {
+      "document": "vtu",
+      "question_id": "vtu_1",
+      "question": "What is the overall study strategy recommended?",
+      "expected_answer": "An active, output-oriented approach that avoids passive reading, tackling modules by conceptual dependency and return on investment rather than by sequential numbering.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 12
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        }
+      ],
+      "generated_answer": "The recommended study strategy is a calculated, neuro-scientifically backed methodology that exploits the structure of the Semester End Examination (SEE), aligns with the psychology of digital valuation, and maximizes knowledge retention. It is an active, output-oriented approach meticulously calibrated for the specific patterns of VTU examinations, avoiding passive reading. It also involves interleaving different subjects to strengthen neural pathways and redefining note-taking to create compressed cognitive triggers. (VTU 7th Sem Study Strategy.pdf, Page: 1, 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_2",
+      "question": "How should one prepare for the internal exams?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_3",
+      "question": "What resources are suggested for studying?",
+      "expected_answer": "Historical VTU question papers, single-sheet formula and syntax notes, and skeletal diagrams; notes are compressed cognitive triggers rather than transcriptions of textbooks.",
+      "gold_pages": [
+        4,
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": false,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_6",
+      "question": "What is the minimum attendance requirement to sit for the exam?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_4",
+      "question": "How is the syllabus divided?",
+      "expected_answer": "Into five modules per subject (BCS702 and BCS703), analysed and ranked individually.",
+      "gold_pages": [
+        1,
+        2,
+        3
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 2
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 3
+        }
+      ],
+      "generated_answer": "The syllabus is divided into modules. For BCS703, the modules cover topics such as Symmetric Ciphers to Asymmetric Mathematics, Hashes/PKI, and Network Security applications. For BCS702, the modules link Hardware limits to Performance metrics, OpenMP (shared), MPI (distributed), and CUDA (heterogeneous). (Source: VTU 7th Sem Study Strategy.pdf, Page: 8)\n\nSpecifically for BCS703, the modules are:\n*   Module 1: Classical Encryption and DES (Source: VTU 7th Sem Study Strategy.pdf, Page: 3)\n*   Module 2: Asymmetric & PRNG (Source: VTU 7th Sem Study Strategy.pdf, Page: 4)\n*   Module 3: Hashes & Key Mgmt (Source: VTU 7th Sem Study Strategy.pdf, Page: 4)\n*   Module 4: Auth & App Sec (Source: VTU 7th Sem Study Strategy.pdf, Page: 4)\n*   Module 5: Network Security (Source: VTU 7th Sem Study Strategy.pdf, Page: 4)\n\nFor another subject (implied to be related to parallel performance), there is:\n*   Module 2: Performance Metrics and GPU Introduction (Source: VTU 7th Sem Study Strategy.pdf, Page: 2)\n*   Module 5: GPU (CUDA) (Source: VTU 7th Sem Study Strategy.pdf, Page: 3)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_5",
+      "question": "What is the advice regarding previous year question papers?",
+      "expected_answer": "Review historical VTU question papers about two weeks before the exam to extract patterns and identify recurring themes.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 12
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "Two weeks before the exam, candidates should review historical VTU question papers to identify recurring themes. Three days prior to the examination, a full, 3-hour mock exam using previous VTU question papers should be executed to calibrate time management (VTU 7th Sem Study Strategy.pdf, Page: 5, 8).",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_1",
+      "question": "Which stage of the pipeline can lose evidence before the embedding model ever sees it?",
+      "expected_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins.",
+      "gold_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_2",
+      "question": "Why do boundaries matter in a layered design according to the document?",
+      "expected_answer": "Boundaries make assumptions visible; a layer can expose its guarantees without exposing its implementation, so components can be replaced.",
+      "gold_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "Boundaries make assumptions visible and make experiments easier. For example, a storage layer can expose durability guarantees without exposing the physical layout of its files, and an API can define an input contract without revealing its implementation. If a document parser is isolated behind a small interface, it can be replaced without rewriting the retrieval system around it. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 1)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_3",
+      "question": "Why is semantic similarity not the same thing as factual correctness?",
+      "expected_answer": "A retrieved passage can be topically related but still fail to contain the answer.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        }
+      ],
+      "generated_answer": "Semantic similarity is not the same thing as factual correctness because a retrieved passage can be topically related but fail to contain the answer. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_4",
+      "question": "According to the test table, which system achieved the highest recall and what was its value?",
+      "expected_answer": "Cirrus, with a recall of 95.4%.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 12
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        }
+      ],
+      "generated_answer": "Cirrus achieved the highest recall with a value of 95.4%. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 5)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_5",
+      "question": "How does the document suggest keyword retrieval and semantic retrieval interact?",
+      "expected_answer": "They complement each other: exact terms help for identifiers, numbers and names, embeddings help when query wording differs, and a production system may combine both signals.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "Keyword retrieval and semantic retrieval can complement each other. Exact terms are valuable for identifiers, numbers, names, and technical expressions, while embeddings are useful when the wording of a query differs from the wording of the source. A production system may combine both signals. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    }
+  ],
+  "pdfplumber": [
+    {
+      "document": "vtu",
+      "question_id": "vtu_1",
+      "question": "What is the overall study strategy recommended?",
+      "expected_answer": "An active, output-oriented approach that avoids passive reading, tackling modules by conceptual dependency and return on investment rather than by sequential numbering.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "The recommended study strategy is active, output-oriented, and meticulously calibrated for VTU examinations, avoiding passive reading. It emphasizes interleaving subjects, focusing on conceptual dependencies and return on investment, and categorizing material by cognitive demand. The strategy also includes reviewing historical question papers to identify recurring themes, practicing complex diagrams and code from memory, and understanding the examiner's perspective for rapid and frictionless evaluation. (VTU 7th Sem Study Strategy.pdf, Page: 4, Page: 5, Page: 7)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_2",
+      "question": "How should one prepare for the internal exams?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 3
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_3",
+      "question": "What resources are suggested for studying?",
+      "expected_answer": "Historical VTU question papers, single-sheet formula and syntax notes, and skeletal diagrams; notes are compressed cognitive triggers rather than transcriptions of textbooks.",
+      "gold_pages": [
+        4,
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        }
+      ],
+      "generated_answer": "The suggested resources for studying include:\n\n*   **VTU question papers** (VTU 7th Sem Study Strategy.pdf, Page: 5)\n*   **Formula sheets** (VTU 7th Sem Study Strategy.pdf, Page: 5)\n*   **Textbooks** (though notes are not transcriptions of them) (VTU 7th Sem Study Strategy.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_6",
+      "question": "What is the minimum attendance requirement to sit for the exam?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_4",
+      "question": "How is the syllabus divided?",
+      "expected_answer": "Into five modules per subject (BCS702 and BCS703), analysed and ranked individually.",
+      "gold_pages": [
+        1,
+        2,
+        3
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": false,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_5",
+      "question": "What is the advice regarding previous year question papers?",
+      "expected_answer": "Review historical VTU question papers about two weeks before the exam to extract patterns and identify recurring themes.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 12
+        }
+      ],
+      "generated_answer": "By reviewing historical VTU question papers, candidates can identify recurring themes and highly probable comparisons (VTU 7th Sem Study Strategy.pdf, Page: 5). Additionally, three days before the examination, candidates should execute a full, 3-hour mock exam using previous VTU question papers to calibrate their time (VTU 7th Sem Study Strategy.pdf, Page: 8).",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_1",
+      "question": "Which stage of the pipeline can lose evidence before the embedding model ever sees it?",
+      "expected_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins.",
+      "gold_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 5, 6, 3, 1, 8)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_2",
+      "question": "Why do boundaries matter in a layered design according to the document?",
+      "expected_answer": "Boundaries make assumptions visible; a layer can expose its guarantees without exposing its implementation, so components can be replaced.",
+      "gold_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "Boundaries make assumptions visible. For example, a storage layer can expose durability guarantees without exposing the physical layout of its files, and an API can define an input contract without revealing its implementation. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 1)\n\nGood boundaries also make experiments easier. If a document parser is isolated behind a small interface, it can be replaced without rewriting the retrieval system around it. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 1)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_3",
+      "question": "Why is semantic similarity not the same thing as factual correctness?",
+      "expected_answer": "A retrieved passage can be topically related but still fail to contain the answer.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "Semantic similarity is not the same thing as factual correctness because a retrieved passage can be topically related but fail to contain the answer. Retrieval evaluation should therefore consider whether the required evidence was actually returned, not merely whether the retrieved text sounded relevant. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_4",
+      "question": "According to the test table, which system achieved the highest recall and what was its value?",
+      "expected_answer": "Cirrus, with a recall of 95.4%.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "According to the test table, Cirrus achieved the highest recall with a value of 95.4%. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 5)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_5",
+      "question": "How does the document suggest keyword retrieval and semantic retrieval interact?",
+      "expected_answer": "They complement each other: exact terms help for identifiers, numbers and names, embeddings help when query wording differs, and a production system may combine both signals.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        }
+      ],
+      "generated_answer": "Keyword retrieval and semantic retrieval can complement each other. Exact terms are valuable for identifiers, numbers, names, and technical expressions, while embeddings are useful when the wording of a query differs from the wording of the source. A production system may combine both signals. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    }
+  ],
+  "pymupdf": [
+    {
+      "document": "vtu",
+      "question_id": "vtu_1",
+      "question": "What is the overall study strategy recommended?",
+      "expected_answer": "An active, output-oriented approach that avoids passive reading, tackling modules by conceptual dependency and return on investment rather than by sequential numbering.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "The recommended study strategy is active, output-oriented, and meticulously calibrated for VTU examinations, avoiding passive reading. It emphasizes interleaving subjects, focusing on conceptual dependencies and return on investment, and strategically allocating effort based on the VTU marking scheme. Notes are redefined as compressed cognitive triggers, and historical VTU question papers are used to identify recurring themes. The strategy also involves understanding the VTU digital valuation system and engineering answers for rapid, frictionless evaluation, often using visual anchoring like diagrams. (VTU 7th Sem Study Strategy.pdf, Page: 4, Page: 5, Page: 7)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_2",
+      "question": "How should one prepare for the internal exams?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 3
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_3",
+      "question": "What resources are suggested for studying?",
+      "expected_answer": "Historical VTU question papers, single-sheet formula and syntax notes, and skeletal diagrams; notes are compressed cognitive triggers rather than transcriptions of textbooks.",
+      "gold_pages": [
+        4,
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        }
+      ],
+      "generated_answer": "The suggested resources for studying include:\n\n*   Historical VTU question papers (VTU 7th Sem Study Strategy.pdf, Page: 5)\n*   Formula sheets (VTU 7th Sem Study Strategy.pdf, Page: 5)\n*   Textbooks (VTU 7th Sem Study Strategy.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_6",
+      "question": "What is the minimum attendance requirement to sit for the exam?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_4",
+      "question": "How is the syllabus divided?",
+      "expected_answer": "Into five modules per subject (BCS702 and BCS703), analysed and ranked individually.",
+      "gold_pages": [
+        1,
+        2,
+        3
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": false,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_5",
+      "question": "What is the advice regarding previous year question papers?",
+      "expected_answer": "Review historical VTU question papers about two weeks before the exam to extract patterns and identify recurring themes.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        }
+      ],
+      "generated_answer": "The advice regarding previous year question papers is to use them for a full, 3-hour mock exam three days prior to the examination to calibrate time management and build hand-muscle endurance (VTU 7th Sem Study Strategy.pdf, Page: 8, Section: None). Additionally, reviewing historical VTU question papers helps identify recurring themes and highly probable comparison questions (VTU 7th Sem Study Strategy.pdf, Page: 5, Section: None). During Week 1 of preparation, the goal is to flawlessly solve any numerical problem from previous papers without referring to formula sheets (VTU 7th Sem Study Strategy.pdf, Page: 9, Section: None).",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_1",
+      "question": "Which stage of the pipeline can lose evidence before the embedding model ever sees it?",
+      "expected_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins.",
+      "gold_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_2",
+      "question": "Why do boundaries matter in a layered design according to the document?",
+      "expected_answer": "Boundaries make assumptions visible; a layer can expose its guarantees without exposing its implementation, so components can be replaced.",
+      "gold_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        }
+      ],
+      "generated_answer": "Boundaries matter in a layered design because they make assumptions visible. For example, a storage layer can expose durability guarantees without revealing the physical layout of its files, and an API can define an input contract without exposing its implementation. Good boundaries also facilitate experiments, allowing components like a document parser to be replaced without rewriting the surrounding retrieval system. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 1)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_3",
+      "question": "Why is semantic similarity not the same thing as factual correctness?",
+      "expected_answer": "A retrieved passage can be topically related but still fail to contain the answer.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "Semantic similarity is not the same thing as factual correctness because a retrieved passage can be topically related but fail to contain the answer. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_4",
+      "question": "According to the test table, which system achieved the highest recall and what was its value?",
+      "expected_answer": "Cirrus, with a recall of 95.4%.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "According to the test table, Cirrus achieved the highest recall with a value of 95.4%. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 5)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_5",
+      "question": "How does the document suggest keyword retrieval and semantic retrieval interact?",
+      "expected_answer": "They complement each other: exact terms help for identifiers, numbers and names, embeddings help when query wording differs, and a production system may combine both signals.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 6
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        }
+      ],
+      "generated_answer": "The document states that it tests repeated terminology, where the same concepts occur in several sections. This allows retrieval experiments to distinguish exact keyword matches from genuinely useful semantic matches (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 2, 3, 5, 6).",
+      "answer_correct": false,
+      "citation_correct": true
+    }
+  ],
+  "lightningparse": [
+    {
+      "document": "vtu",
+      "question_id": "vtu_1",
+      "question": "What is the overall study strategy recommended?",
+      "expected_answer": "An active, output-oriented approach that avoids passive reading, tackling modules by conceptual dependency and return on investment rather than by sequential numbering.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "The recommended study strategy is active, output-oriented, and calibrated for VTU examinations. It avoids passive reading and prioritizes modules based on conceptual dependencies and return on investment. It also emphasizes interleaving subjects, redefining note-taking as compressed cognitive triggers, and categorizing syllabus material by cognitive demand. (Source: VTU 7th Sem Study Strategy.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_2",
+      "question": "How should one prepare for the internal exams?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 3
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_3",
+      "question": "What resources are suggested for studying?",
+      "expected_answer": "Historical VTU question papers, single-sheet formula and syntax notes, and skeletal diagrams; notes are compressed cognitive triggers rather than transcriptions of textbooks.",
+      "gold_pages": [
+        4,
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": false,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_6",
+      "question": "What is the minimum attendance requirement to sit for the exam?",
+      "expected_answer": "cannot be determined",
+      "gold_pages": [],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 6
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        }
+      ],
+      "generated_answer": "The answer cannot be determined from the retrieved material.",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_4",
+      "question": "How is the syllabus divided?",
+      "expected_answer": "Into five modules per subject (BCS702 and BCS703), analysed and ranked individually.",
+      "gold_pages": [
+        1,
+        2,
+        3
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 4
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "The syllabus is divided into modules. For example, BCS 702 Parallel Computing has Module 1, Module 2, and Module 3. (VTU 7th Sem Study Strategy.pdf, Page: 1, 2)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "vtu",
+      "question_id": "vtu_5",
+      "question": "What is the advice regarding previous year question papers?",
+      "expected_answer": "Review historical VTU question papers about two weeks before the exam to extract patterns and identify recurring themes.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 9
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 5
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 1
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "The candidate should solve any numerical problem from previous papers flawlessly without referring to formula sheets (VTU 7th Sem Study Strategy.pdf, Page: 9). Two weeks prior to the examination, the focus shifts to pattern extraction by reviewing historical VTU question papers to identify recurring themes (VTU 7th Sem Study Strategy.pdf, Page: 5). Three days prior to the examination, the candidate executes a full 3-hour mock exam using previous VTU question papers to calibrate time (VTU 7th Sem Study Strategy.pdf, Page: 8).",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_1",
+      "question": "Which stage of the pipeline can lose evidence before the embedding model ever sees it?",
+      "expected_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins.",
+      "gold_pages": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        }
+      ],
+      "generated_answer": "Extraction or chunking can discard or corrupt evidence before retrieval begins (lightningparse_test_document_TRUE_2COL.pdf, Page: 4).",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_2",
+      "question": "Why do boundaries matter in a layered design according to the document?",
+      "expected_answer": "Boundaries make assumptions visible; a layer can expose its guarantees without exposing its implementation, so components can be replaced.",
+      "gold_pages": [
+        1
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        }
+      ],
+      "generated_answer": "Boundaries make assumptions visible. For example, a storage layer can expose durability guarantees without exposing the physical layout of its files, and an API can define an input contract without revealing its implementation. Good boundaries also make experiments easier, allowing components like a document parser to be replaced without rewriting the surrounding retrieval system. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 1, Section: body)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_3",
+      "question": "Why is semantic similarity not the same thing as factual correctness?",
+      "expected_answer": "A retrieved passage can be topically related but still fail to contain the answer.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 8
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        }
+      ],
+      "generated_answer": "Semantic similarity is not the same thing as factual correctness because a retrieved passage can be topically related but still fail to contain the actual answer. Retrieval evaluation should therefore focus on whether the necessary evidence was returned, not just if the retrieved text seemed relevant. (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4)",
+      "answer_correct": true,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_4",
+      "question": "According to the test table, which system achieved the highest recall and what was its value?",
+      "expected_answer": "Cirrus, with a recall of 95.4%.",
+      "gold_pages": [
+        5
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 5
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 7
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 8
+        },
+        {
+          "source": "VTU 7th Sem Study Strategy.pdf",
+          "page": 12
+        }
+      ],
+      "generated_answer": "Based on the test table provided in Context 1, the system that achieved the highest recall is Atlas, with a value of 88.7%.",
+      "answer_correct": false,
+      "citation_correct": true
+    },
+    {
+      "document": "synthetic",
+      "question_id": "syn_5",
+      "question": "How does the document suggest keyword retrieval and semantic retrieval interact?",
+      "expected_answer": "They complement each other: exact terms help for identifiers, numbers and names, embeddings help when query wording differs, and a production system may combine both signals.",
+      "gold_pages": [
+        4
+      ],
+      "retrieved": [
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 1
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 4
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 2
+        },
+        {
+          "source": "lightningparse_test_document_TRUE_2COL.pdf",
+          "page": 3
+        }
+      ],
+      "generated_answer": "The document states that keyword retrieval and semantic retrieval can complement each other (Source: lightningparse_test_document_TRUE_2COL.pdf, Page: 4, Section: body).",
+      "answer_correct": true,
+      "citation_correct": true
+    }
+  ]
+}

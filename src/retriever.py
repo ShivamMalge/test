@@ -19,28 +19,41 @@ class Retriever:
         
     def build_index(self, embeddings: np.ndarray, chunks: List[Dict[str, Any]]):
         """
-        Builds a FAISS index and BM25 index from the given embeddings and chunks.
+        Resets the retriever and indexes the given embeddings and chunks.
+        """
+        self.index = None
+        self.bm25 = None
+        self.chunks = []
+        self.add_documents(embeddings, chunks)
+
+    def add_documents(self, embeddings: np.ndarray, chunks: List[Dict[str, Any]]):
+        """
+        Appends embeddings and chunks to the existing indexes.
+
+        Multi-document corpora depend on this: rebuilding the index on every
+        ingest would silently discard every previously indexed document.
         """
         if len(embeddings) == 0 or len(chunks) == 0:
             return
-            
+
         dimension = embeddings.shape[1]
-        
-        # Initialize FAISS index for inner product (cosine similarity for normalized vectors)
-        # We assume embeddings are normalized by SentenceTransformer.
-        # If not perfectly normalized, IP still works better for ranking semantic similarity than raw L2 sometimes.
-        # But we'll use IndexFlatL2 to be safe since we already tested it. 
-        # Wait, actually L2 works fine, let's keep L2 to avoid breaking existing distance assumptions, 
-        # but the scores sorting is what matters. 
-        self.index = faiss.IndexFlatL2(dimension)
+
+        # FAISS L2 over the SentenceTransformer vectors. Only the ranking matters
+        # here, since the RRF stage below consumes ranks rather than raw distances.
+        if self.index is None:
+            self.index = faiss.IndexFlatL2(dimension)
+        elif self.index.d != dimension:
+            raise ValueError(
+                f"Embedding dimension {dimension} does not match index dimension {self.index.d}."
+            )
         self.index.add(embeddings)
-        
-        # Initialize BM25 index using BM25Plus to avoid negative IDFs
-        tokenized_corpus = [_tokenize(chunk["text"]) for chunk in chunks]
+
+        self.chunks = self.chunks + list(chunks)
+
+        # rank_bm25 has no incremental API, so BM25 is rebuilt over the full corpus.
+        tokenized_corpus = [_tokenize(chunk["text"]) for chunk in self.chunks]
         self.bm25 = BM25Plus(tokenized_corpus)
-        
-        self.chunks = chunks
-        
+
     def search(self, query: str, top_k: int = 3) -> List[Dict[str, Any]]:
         """
         Performs hybrid retrieval using FAISS and BM25, combined with RRF.

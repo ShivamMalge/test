@@ -1,8 +1,7 @@
 import os
 from typing import Dict, Any
 
-from src.parser import parse_document
-from src.parser_pypdf import parse_document_pypdf
+from src.parser_registry import get_parser
 from src.chunker import Chunker
 from src.embeddings import EmbeddingPipeline
 from src.retriever import Retriever
@@ -23,7 +22,8 @@ class LightningRAG:
         self.retriever = Retriever(self.embedding_pipeline)
         self.generator = Generator(model=llm_model)
         self.parser_type = parser_type
-        
+        self.parse = get_parser(parser_type)
+
         self.indexed_docs = set()
 
     def ingest_document(self, pdf_path: str):
@@ -35,11 +35,8 @@ class LightningRAG:
             return
             
         print(f"Ingesting {pdf_path} using {self.parser_type}...")
-        if self.parser_type == "pypdf":
-            parsed_doc = parse_document_pypdf(pdf_path)
-        else:
-            parsed_doc = parse_document(pdf_path)
-        
+        parsed_doc = self.parse(pdf_path)
+
         print("Chunking...")
         chunks = self.chunker.chunk_document(parsed_doc, pdf_path)
         
@@ -47,10 +44,9 @@ class LightningRAG:
         embeddings, chunks = self.embedding_pipeline.embed_chunks(chunks)
         
         print("Indexing...")
-        # Note: In a real system we'd append to the index. 
-        # Here we just build/rebuild the index for simplicity in v0.1.
-        self.retriever.build_index(embeddings, chunks)
-        
+        # Append, so that ingesting a second document does not evict the first.
+        self.retriever.add_documents(embeddings, chunks)
+
         self.indexed_docs.add(pdf_path)
         print(f"Successfully indexed {pdf_path} ({len(chunks)} chunks).")
 

@@ -40,7 +40,9 @@ def test_chunker_basic():
     assert len(chunks) == 4, f"Expected 4 chunks, got {len(chunks)}"
     assert chunks[0]["section"] == "sec1"
     assert chunks[0]["page"] == 1
-    assert "Short block.\n\nAnother short block." in chunks[0]["text"]
+    # Blocks are line-level for layout-aware parsers, so a completed sentence is
+    # followed by a single newline rather than a blank-line paragraph break.
+    assert "Short block.\nAnother short block." in chunks[0]["text"]
     
     assert chunks[1]["section"] == "sec2"
     
@@ -52,6 +54,38 @@ def test_chunker_basic():
     assert chunks[3]["section"] == "sec3"
     
     print("test_chunker_basic passed!")
+
+
+def test_chunker_keeps_tables():
+    """Table blocks carry `rows` and no `text`; they must not be dropped."""
+    mock_doc = {
+        "pages": [
+            {
+                "page_num": 1,
+                "blocks": [
+                    {
+                        "type": "table",
+                        "rows": [
+                            ["System", "Recall"],
+                            ["Cirrus", "95.4%"],
+                            ["", ""],  # empty row is skipped
+                        ],
+                        "section_id": "body",
+                    }
+                ],
+            }
+        ]
+    }
+
+    chunks = Chunker(max_chunk_size=1500, min_chunk_size=10).chunk_document(mock_doc, "mock.pdf")
+
+    assert len(chunks) == 1, f"Expected the table to produce 1 chunk, got {len(chunks)}"
+    text = chunks[0]["text"]
+    assert "| System | Recall |" in text, text
+    assert "| Cirrus | 95.4% |" in text, text
+    assert text.count("\n") == 1, f"Empty row should be skipped: {text!r}"
+
+    print("test_chunker_keeps_tables passed!")
 
 def test_chunker_real_document():
     pdf_path = "data/synthetic/lightningparse_test_document_TRUE_2COL.pdf"
@@ -80,4 +114,5 @@ def test_chunker_real_document():
 
 if __name__ == "__main__":
     test_chunker_basic()
+    test_chunker_keeps_tables()
     test_chunker_real_document()
