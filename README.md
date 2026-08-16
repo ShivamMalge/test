@@ -18,6 +18,8 @@ Every retrieved chunk strictly preserves its source filename and page number, en
 
 ## Benchmark: four PDF parsers
 
+The primary goal of this benchmark is to establish **how fast LightningParse is** under a fair, parser-only measurement, with downstream RAG quality tracked alongside so that a speed claim can never be bought with silent extraction loss.
+
 We benchmarked `lightningparse==0.4.1` against three Python baselines, chosen to cover the range rather than only the weakest option:
 
 | Parser | Why it is here |
@@ -75,8 +77,23 @@ Eleven questions with human-authored expected answers and verified gold pages. T
 **Key Takeaways:**
 - **Speed is where LightningParse wins decisively.** It is 62x faster than pypdf, 152x faster than pdfplumber, and 65x faster than PyMuPDF-with-tables on this corpus — or ~2x against PyMuPDF's text-only path. It is the only parser whose timing is stable to a few milliseconds; the others vary by 10-25% run to run.
 - **Downstream quality is a wash on this corpus.** All four parsers score identical recall (9/9), identical citation accuracy (9/9), and full marks on both hallucination controls. Answer correctness spans 9/11 to 10/11 — a one-question spread on an eleven-question set, which is well inside noise. **This benchmark cannot distinguish these parsers on RAG quality**; it can only distinguish them on speed and on specific mechanical failures.
-- **Table extraction is LightningParse's real weakness, and it is mechanical rather than statistical.** pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1, and that one was missing its header and first data row (they were emitted as ordinary text blocks) and had a cell of adjacent prose bleeding into it. The consequence is concrete: the resulting header-less table chunk carries no term matching a query about "recall", ranks 46th of 86, and the model answered "Atlas, 88.7%" instead of "Cirrus, 95.4%". Both table-capable parsers answered it correctly. On the VTU document LightningParse found **zero** of the six module tables the other two recovered cleanly.
+- **Table extraction is a known limitation of 0.4.1, scheduled to be addressed in 0.5.0.** The benchmark quantifies it rather than discovering it. pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1, and that one was missing its header and first data row (they were emitted as ordinary text blocks) and had a cell of adjacent prose bleeding into it. The downstream consequence is concrete: the resulting header-less table chunk carries no term matching a query about "recall", ranks 46th of 86, and the model answered "Atlas, 88.7%" instead of "Cirrus, 95.4%". Both table-capable parsers answered it correctly. On the VTU document LightningParse found **zero** of the six module tables the other two recovered cleanly. See [Regression targets for 0.5.0](#regression-targets-for-050).
 - **Extracted character counts are not directly comparable.** LightningParse returns 30,059 characters for the VTU document against pypdf's 42,676, largely because it drops inter-word spaces there (`StrategicAcademicMastery:An`). The chunker repairs this with `wordninja`.
+
+### Regression targets for 0.5.0
+
+Table extraction is a known 0.4.1 limitation and is planned for 0.5.0. The numbers above double as its acceptance criteria — re-run `python tests/benchmark.py` after the fix and compare:
+
+| Signal | 0.4.1 (baseline) | Target for 0.5.0 | Where to read it |
+| :--- | :--- | :--- | :--- |
+| Tables extracted (20-page corpus) | 1 | 7, matching pdfplumber and PyMuPDF | `Tables extracted` row of the parsing table |
+| VTU module tables | 0 of 6 | 6 of 6 | same row, `vtu.parsing.tables_extracted` |
+| Header row retained | no | yes — first row should be `System / Accuracy / Precision / Recall` | `rows[0]` of the synthetic page-5 table block |
+| Cell contamination | `'for downstream RAG than a flat text dump.'` leaked into the Borealis row | no prose cells | same block |
+| `syn_4` answer | "Atlas, 88.7%" (wrong) | "Cirrus, 95.4%" | `benchmark_transcript.json` |
+| Table chunk retrieval rank | 46 of 86 | inside the top 5 | re-query the retriever for the `syn_4` question |
+
+The parse-latency rows are the guard on the other side: the fix should not move the 50 ms total materially. Watch `pages_per_sec` and the per-document `median_ms`, since table detection is precisely what costs PyMuPDF ~3.2 s of its ~3.3 s.
 
 ### Limitations
 
