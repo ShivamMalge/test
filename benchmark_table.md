@@ -2,12 +2,12 @@
 
 | Metric | pypdf | pdfplumber | pymupdf | lightningparse |
 | :--- | ---: | ---: | ---: | ---: |
-| **Parse latency, median total (20 pages)** | 3138.26 ms | 7656.4 ms | 3290.11 ms | 50.25 ms |
-| Synthetic — median ms | 118.15 | 1365.62 | 1062.4 | 10.33 |
-| Synthetic — min / max | 117.93 / 127.28 | 1010.95 / 1443.03 | 1052.27 / 1451.26 | 9.26 / 10.92 |
-| VTU — median ms | 3020.11 | 6290.78 | 2227.71 | 39.92 |
-| VTU — min / max | 2846.19 / 3206.13 | 6279.98 / 6311.04 | 2216.53 / 2517.02 | 39.56 / 43.8 |
-| **Pages/sec** | 6.37 | 2.61 | 6.08 | 398.01 |
+| **Parse latency, median total (20 pages)** | 3328.92 ms | 8186.08 ms | 4640.77 ms | 68.61 ms |
+| Synthetic — median ms | 181.41 | 1514.63 | 1056.34 | 12.89 |
+| Synthetic — min / max | 165.82 / 192.76 | 1191.15 / 1596.67 | 1026.74 / 1391.28 | 10.9 / 16.63 |
+| VTU — median ms | 3147.51 | 6671.45 | 3584.43 | 55.72 |
+| VTU — min / max | 3042.37 / 3824.12 | 6462.18 / 7247.3 | 2938.84 / 3958.44 | 49.45 / 76.91 |
+| **Pages/sec** | 6.01 | 2.44 | 4.31 | 291.5 |
 | Blocks extracted | 20 | 26 | 191 | 1168 |
 | Tables extracted | 0 | 7 | 7 | 1 |
 | Characters extracted | 66480 | 58366 | 58835 | 53380 |

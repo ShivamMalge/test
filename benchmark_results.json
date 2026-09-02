@@ -1,8 +1,8 @@
 {
   "pypdf": {
     "aggregate": {
-      "parse_latency_median_total_ms": 3138.26,
-      "pages_per_sec": 6.37,
+      "parse_latency_median_total_ms": 3328.92,
+      "pages_per_sec": 6.01,
       "pages": 20,
       "extraction_failures": 0,
       "indexed_chunks": 83,
@@ -19,12 +19,12 @@
         "blocks_extracted": 8,
         "tables_extracted": 0,
         "reps": 5,
-        "mean_ms": 120.56,
-        "median_ms": 118.15,
-        "min_ms": 117.93,
-        "max_ms": 127.28,
-        "stdev_ms": 4.04,
-        "pages_per_sec": 67.71
+        "mean_ms": 178.94,
+        "median_ms": 181.41,
+        "min_ms": 165.82,
+        "max_ms": 192.76,
+        "stdev_ms": 10.35,
+        "pages_per_sec": 44.1
       },
       "recall_at_5": "5/5",
       "answer_correctness": "5/5",
@@ -39,12 +39,12 @@
         "blocks_extracted": 12,
         "tables_extracted": 0,
         "reps": 5,
-        "mean_ms": 3025.54,
-        "median_ms": 3020.11,
-        "min_ms": 2846.19,
-        "max_ms": 3206.13,
-        "stdev_ms": 157.46,
-        "pages_per_sec": 3.97
+        "mean_ms": 3313.09,
+        "median_ms": 3147.51,
+        "min_ms": 3042.37,
+        "max_ms": 3824.12,
+        "stdev_ms": 327.45,
+        "pages_per_sec": 3.81
       },
       "recall_at_5": "4/4",
       "answer_correctness": "5/6",
@@ -54,8 +54,8 @@
   },
   "pdfplumber": {
     "aggregate": {
-      "parse_latency_median_total_ms": 7656.4,
-      "pages_per_sec": 2.61,
+      "parse_latency_median_total_ms": 8186.08,
+      "pages_per_sec": 2.44,
       "pages": 20,
       "extraction_failures": 0,
       "indexed_chunks": 74,
@@ -72,12 +72,12 @@
         "blocks_extracted": 9,
         "tables_extracted": 1,
         "reps": 5,
-        "mean_ms": 1257.41,
-        "median_ms": 1365.62,
-        "min_ms": 1010.95,
-        "max_ms": 1443.03,
-        "stdev_ms": 214.24,
-        "pages_per_sec": 5.86
+        "mean_ms": 1427.94,
+        "median_ms": 1514.63,
+        "min_ms": 1191.15,
+        "max_ms": 1596.67,
+        "stdev_ms": 182.18,
+        "pages_per_sec": 5.28
       },
       "recall_at_5": "5/5",
       "answer_correctness": "5/5",
@@ -92,12 +92,12 @@
         "blocks_extracted": 17,
         "tables_extracted": 6,
         "reps": 5,
-        "mean_ms": 6294.15,
-        "median_ms": 6290.78,
-        "min_ms": 6279.98,
-        "max_ms": 6311.04,
-        "stdev_ms": 11.58,
-        "pages_per_sec": 1.91
+        "mean_ms": 6763.96,
+        "median_ms": 6671.45,
+        "min_ms": 6462.18,
+        "max_ms": 7247.3,
+        "stdev_ms": 317.05,
+        "pages_per_sec": 1.8
       },
       "recall_at_5": "4/4",
       "answer_correctness": "5/6",
@@ -107,8 +107,8 @@
   },
   "pymupdf": {
     "aggregate": {
-      "parse_latency_median_total_ms": 3290.11,
-      "pages_per_sec": 6.08,
+      "parse_latency_median_total_ms": 4640.77,
+      "pages_per_sec": 4.31,
       "pages": 20,
       "extraction_failures": 0,
       "indexed_chunks": 76,
@@ -125,12 +125,12 @@
         "blocks_extracted": 139,
         "tables_extracted": 1,
         "reps": 5,
-        "mean_ms": 1142.59,
-        "median_ms": 1062.4,
-        "min_ms": 1052.27,
-        "max_ms": 1451.26,
-        "stdev_ms": 173.11,
-        "pages_per_sec": 7.53
+        "mean_ms": 1116.7,
+        "median_ms": 1056.34,
+        "min_ms": 1026.74,
+        "max_ms": 1391.28,
+        "stdev_ms": 154.3,
+        "pages_per_sec": 7.57
       },
       "recall_at_5": "5/5",
       "answer_correctness": "4/5",
@@ -145,12 +145,12 @@
         "blocks_extracted": 52,
         "tables_extracted": 6,
         "reps": 5,
-        "mean_ms": 2282.67,
-        "median_ms": 2227.71,
-        "min_ms": 2216.53,
-        "max_ms": 2517.02,
-        "stdev_ms": 131.2,
-        "pages_per_sec": 5.39
+        "mean_ms": 3506.13,
+        "median_ms": 3584.43,
+        "min_ms": 2938.84,
+        "max_ms": 3958.44,
+        "stdev_ms": 378.73,
+        "pages_per_sec": 3.35
       },
       "recall_at_5": "4/4",
       "answer_correctness": "5/6",
@@ -160,8 +160,8 @@
   },
   "lightningparse": {
     "aggregate": {
-      "parse_latency_median_total_ms": 50.25,
-      "pages_per_sec": 398.01,
+      "parse_latency_median_total_ms": 68.61,
+      "pages_per_sec": 291.5,
       "pages": 20,
       "extraction_failures": 0,
       "indexed_chunks": 86,
@@ -178,12 +178,12 @@
         "blocks_extracted": 467,
         "tables_extracted": 1,
         "reps": 5,
-        "mean_ms": 10.22,
-        "median_ms": 10.33,
-        "min_ms": 9.26,
-        "max_ms": 10.92,
-        "stdev_ms": 0.69,
-        "pages_per_sec": 774.61
+        "mean_ms": 13.26,
+        "median_ms": 12.89,
+        "min_ms": 10.9,
+        "max_ms": 16.63,
+        "stdev_ms": 2.12,
+        "pages_per_sec": 620.58
       },
       "recall_at_5": "5/5",
       "answer_correctness": "4/5",
@@ -198,17 +198,23 @@
         "blocks_extracted": 701,
         "tables_extracted": 0,
         "reps": 5,
-        "mean_ms": 40.86,
-        "median_ms": 39.92,
-        "min_ms": 39.56,
-        "max_ms": 43.8,
-        "stdev_ms": 1.77,
-        "pages_per_sec": 300.57
+        "mean_ms": 58.86,
+        "median_ms": 55.72,
+        "min_ms": 49.45,
+        "max_ms": 76.91,
+        "stdev_ms": 10.6,
+        "pages_per_sec": 215.36
       },
       "recall_at_5": "4/4",
       "answer_correctness": "5/6",
       "citation_correctness": "4/4",
       "abstention": "2/2"
     }
+  },
+  "_meta": {
+    "lightningparse_version": "0.5.0",
+    "date": "2026-09-02",
+    "parse_latency": "all four parsers re-timed in a single session; mutually comparable",
+    "quality_scores": "carried over from the 0.4.1 run and NOT re-measured under 0.5.0 - OpenRouter credits exhausted mid-run (HTTP 402). Table output is byte-identical between 0.4.1 and 0.5.0, but section_id classification changed, so these may shift slightly on re-measurement."
   }
 }

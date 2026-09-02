@@ -20,7 +20,7 @@ Every retrieved chunk strictly preserves its source filename and page number, en
 
 The primary goal of this benchmark is to establish **how fast LightningParse is** under a fair, parser-only measurement, with downstream RAG quality tracked alongside so that a speed claim can never be bought with silent extraction loss.
 
-We benchmarked `lightningparse==0.4.1` against three Python baselines, chosen to cover the range rather than only the weakest option:
+We benchmarked `lightningparse==0.5.0` against three Python baselines, chosen to cover the range rather than only the weakest option:
 
 | Parser | Why it is here |
 | :--- | :--- |
@@ -33,7 +33,7 @@ Everything except the parser is held constant: same documents, chunker, embeddin
 
 The corpus is two documents, 20 pages total:
 1. **VTU 7th Sem Study Strategy** (12 pages): text-heavy, with six module comparison tables.
-2. **Synthetic Document** (8 pages): two-column technical paper with a benchmark table. Parsed as distributed — 0.4.1 reads its `ASCII85Decode` streams natively (`tier: digital`, no OCR fallback), so no pre-cleaning is applied.
+2. **Synthetic Document** (8 pages): two-column technical paper with a benchmark table. Parsed as distributed — LightningParse reads its `ASCII85Decode` streams natively (`tier: digital`, no OCR fallback), so no pre-cleaning is applied.
 
 **Parsing latency is measured for the parser alone** — one warm-up run, then 5 timed repetitions, no chunking, embedding, or indexing inside the timed region.
 
@@ -41,12 +41,12 @@ The corpus is two documents, 20 pages total:
 
 | Metric | pypdf | pdfplumber | pymupdf | lightningparse |
 | :--- | ---: | ---: | ---: | ---: |
-| **Parse latency, median total (20 pages)** | 3138.3 ms | 7656.4 ms | 3290.1 ms | **50.3 ms** |
-| Synthetic — median ms | 118.2 | 1365.6 | 1062.4 | **10.3** |
-| Synthetic — min / max | 117.9 / 127.3 | 1011.0 / 1443.0 | 1052.3 / 1451.3 | 9.3 / 10.9 |
-| VTU — median ms | 3020.1 | 6290.8 | 2227.7 | **39.9** |
-| VTU — min / max | 2846.2 / 3206.1 | 6280.0 / 6311.0 | 2216.5 / 2517.0 | 39.6 / 43.8 |
-| **Pages/sec** | 6.4 | 2.6 | 6.1 | **398.0** |
+| **Parse latency, median total (20 pages)** | 3328.9 ms | 8186.1 ms | 4640.8 ms | **68.6 ms** |
+| Synthetic — median ms | 181.4 | 1514.6 | 1056.3 | **12.9** |
+| Synthetic — min / max | 165.8 / 192.8 | 1191.2 / 1596.7 | 1026.7 / 1391.3 | 10.9 / 16.6 |
+| VTU — median ms | 3147.5 | 6671.5 | 3584.4 | **55.7** |
+| VTU — min / max | 3042.4 / 3824.1 | 6462.2 / 7247.3 | 2938.8 / 3958.4 | 49.5 / 76.9 |
+| **Pages/sec** | 6.0 | 2.4 | 4.3 | **291.5** |
 | Blocks extracted | 20 | 26 | 191 | 1168 |
 | **Tables extracted** | 0 | **7** | **7** | 1 |
 | Characters extracted | 66480 | 58366 | 58835 | 53380 |
@@ -57,14 +57,18 @@ The corpus is two documents, 20 pages total:
 
 | PyMuPDF configuration | Synthetic | VTU | Total |
 | :--- | ---: | ---: | ---: |
-| `get_text("blocks")` only (no tables) | 22.3 ms | 74.2 ms | **96.5 ms** |
-| with `find_tables()` (as benchmarked) | 1047.9 ms | 2157.8 ms | 3205.7 ms |
+| `get_text("blocks")` only (no tables) | 21.6 ms | 75.0 ms | **96.6 ms** |
+| with `find_tables()` (as benchmarked) | 1056.3 ms | 3584.4 ms | 4640.8 ms |
 
-So LightningParse is ~65x faster than PyMuPDF *with table detection*, but only about **2x faster than PyMuPDF's text extraction alone** — while still doing its own table detection within that budget. pdfplumber is slow either way (7131 ms text-only), because the cost is `pdfminer`, not tables. PyPDF's cost is genuinely in extraction, not file opening (`PdfReader()` 3.6 ms, `extract_text()` ~2.8 s). LightningParse's self-reported `parse_time_ms` matches the externally measured figure, so the JSON round-trip is not hiding work.
+So LightningParse is ~68x faster than PyMuPDF *with table detection*, but only about **1.4x faster than PyMuPDF's text extraction alone** — while still doing its own structure and table detection within that budget. pdfplumber is slow either way, because the cost is `pdfminer`, not tables. PyPDF's cost is genuinely in extraction, not file opening (`PdfReader()` 3.6 ms, `extract_text()` the remainder). LightningParse's self-reported `parse_time_ms` matches the externally measured figure, so the JSON round-trip is not hiding work.
+
+**Absolute latencies are only comparable within a single run.** This machine measured LightningParse at 50 ms in an earlier session and 69 ms here, for identical parser output. An interleaved A/B of 0.4.1 against 0.5.0 run back-to-back gave 70.3 / 75.3 / 72.2 ms versus 66.1 / 68.8 / 73.3 ms — indistinguishable, so **0.5.0 did not change parsing speed**. Only ratios measured inside one run should be quoted; PyMuPDF's text-only figure is the exception, landing at 96.5 and 96.6 ms across both sessions.
 
 ### Downstream RAG quality
 
 Eleven questions with human-authored expected answers and verified gold pages. Two are negative controls whose subject matter is verifiably absent from both documents; recall and citation are scored over the nine answerable questions, answers over all eleven.
+
+> **Provenance:** these quality scores were measured under 0.4.1 and have **not** been re-measured under 0.5.0 — the OpenRouter key ran out of credits mid-run (HTTP 402). Parser table output is byte-identical between the two versions, but 0.5.0 changed `section_id` classification, which shifts chunk boundaries (86 chunks to 84), so these numbers could move by a question on re-measurement. The parsing latencies above *were* re-measured under 0.5.0. `benchmark_results.json` records this under `_meta`.
 
 | Metric | pypdf | pdfplumber | pymupdf | lightningparse |
 | :--- | ---: | ---: | ---: | ---: |
@@ -75,29 +79,39 @@ Eleven questions with human-authored expected answers and verified gold pages. T
 | Indexed chunks | 83 | 74 | 76 | 86 |
 
 **Key Takeaways:**
-- **Speed is where LightningParse wins decisively.** It is 62x faster than pypdf, 152x faster than pdfplumber, and 65x faster than PyMuPDF-with-tables on this corpus — or ~2x against PyMuPDF's text-only path. It is the only parser whose timing is stable to a few milliseconds; the others vary by 10-25% run to run.
+- **Speed is where LightningParse wins decisively.** In this run it is 49x faster than pypdf, 119x faster than pdfplumber, and 68x faster than PyMuPDF-with-tables — or ~1.4x against PyMuPDF's text-only path, which is the honest like-for-like figure since that path does no table detection. 0.5.0 is no faster or slower than 0.4.1; an interleaved A/B put them within noise of each other.
 - **Downstream quality is a wash on this corpus.** All four parsers score identical recall (9/9), identical citation accuracy (9/9), and full marks on both hallucination controls. Answer correctness spans 9/11 to 10/11 — a one-question spread on an eleven-question set, which is well inside noise. **This benchmark cannot distinguish these parsers on RAG quality**; it can only distinguish them on speed and on specific mechanical failures.
-- **Table extraction is a known limitation of 0.4.1, scheduled to be addressed in 0.5.0.** The benchmark quantifies it rather than discovering it. pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1, and that one was missing its header and first data row (they were emitted as ordinary text blocks) and had a cell of adjacent prose bleeding into it. The downstream consequence is concrete: the resulting header-less table chunk carries no term matching a query about "recall", ranks 46th of 86, and the model answered "Atlas, 88.7%" instead of "Cirrus, 95.4%". Both table-capable parsers answered it correctly. On the VTU document LightningParse found **zero** of the six module tables the other two recovered cleanly. See [Regression targets for 0.5.0](#regression-targets-for-050).
+- **Table extraction is still the open limitation as of 0.5.0.** It was expected to land in this release and did not: the parser's table output is byte-for-byte identical to 0.4.1. The benchmark quantifies the gap rather than discovering it. pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1, and that one was missing its header and first data row (they were emitted as ordinary text blocks) and had a cell of adjacent prose bleeding into it. The downstream consequence is concrete: the resulting header-less table chunk carries no term matching a query about "recall", ranks 46th of 86, and the model answered "Atlas, 88.7%" instead of "Cirrus, 95.4%". Both table-capable parsers answered it correctly. On the VTU document LightningParse found **zero** of the six module tables the other two recovered cleanly. See the [0.5.0 scorecard](#050-scorecard).
 - **Extracted character counts are not directly comparable.** LightningParse returns 30,059 characters for the VTU document against pypdf's 42,676, largely because it drops inter-word spaces there (`StrategicAcademicMastery:An`). The chunker repairs this with `wordninja`.
 
-### Regression targets for 0.5.0
+### 0.5.0 scorecard
 
-Table extraction is a known 0.4.1 limitation and is planned for 0.5.0. The numbers above double as its acceptance criteria — re-run `python tests/benchmark.py` after the fix and compare:
+The 0.4.1 numbers were published as acceptance criteria for the table work planned in 0.5.0. Re-running against `lightningparse==0.5.0` gives:
 
-| Signal | 0.4.1 (baseline) | Target for 0.5.0 | Where to read it |
-| :--- | :--- | :--- | :--- |
-| Tables extracted (20-page corpus) | 1 | 7, matching pdfplumber and PyMuPDF | `Tables extracted` row of the parsing table |
-| VTU module tables | 0 of 6 | 6 of 6 | same row, `vtu.parsing.tables_extracted` |
-| Header row retained | no | yes — first row should be `System / Accuracy / Precision / Recall` | `rows[0]` of the synthetic page-5 table block |
-| Cell contamination | `'for downstream RAG than a flat text dump.'` leaked into the Borealis row | no prose cells | same block |
-| `syn_4` answer | "Atlas, 88.7%" (wrong) | "Cirrus, 95.4%" | `benchmark_transcript.json` |
-| Table chunk retrieval rank | 46 of 86 | inside the top 5 | re-query the retriever for the `syn_4` question |
+| Signal | 0.4.1 baseline | 0.5.0 target | 0.5.0 actual | |
+| :--- | :--- | :--- | :--- | :--- |
+| Tables extracted (20-page corpus) | 1 | 7 | 1 | not met |
+| VTU module tables | 0 of 6 | 6 of 6 | 0 of 6 | not met |
+| Header row retained | no | `System / Accuracy / Precision / Recall` | no | not met |
+| Cell contamination | prose leaked into the Borealis row | none | unchanged | not met |
+| `syn_4` answer | "Atlas, 88.7%" | "Cirrus, 95.4%" | not re-measured (credits) | — |
+| Table chunk retrieval rank | 46 of 86 | top 5 | unchanged | not met |
+| Parse latency (the guard) | — | no material regression | within noise of 0.4.1 | met |
 
-The parse-latency rows are the guard on the other side: the fix should not move the 50 ms total materially. Watch `pages_per_sec` and the per-document `median_ms`, since table detection is precisely what costs PyMuPDF ~3.2 s of its ~3.3 s.
+**The table work did not land in 0.5.0.** Diffing full parser output across the two versions shows the table blocks are byte-for-byte identical — same single table, same three rows, same missing header, same contaminated cell, same zero tables on the VTU document.
+
+What 0.5.0 *did* change, verified the same way:
+
+- **`page_width` and `page_height`** added to every page object.
+- **Better section classification.** Blocks previously misfiled as `section_id: "header"` are now `body` with `block_role: "heading"`. Synthetic `header` blocks fell 60 to 32; VTU 2 to 0. This is a real improvement — the synthetic document's right-hand column was being labelled a page header — and it shifts chunk boundaries slightly (86 chunks to 84).
+- **No speed change**, per the interleaved A/B above.
+
+The criteria above stand unchanged as the target for whichever release carries the table fix.
 
 ### Limitations
 
 - Eleven questions over two documents is too small to resolve one-question differences. Treat the quality table as "no measurable difference", not as a ranking.
+- The quality table was last measured under 0.4.1. Under 0.5.0 only the parsing latencies were re-measured; see the provenance note above.
 - Answers are graded by required-keyword matching against human-authored expected answers. This is deterministic and auditable, but it rewards phrasing that contains the key terms.
 - Both documents are digital-tier. No scanned or OCR-requiring document is exercised, so the OCR paths of all four parsers are untested.
 - `find_tables()` and `extract_tables()` are used at default settings; tuning them would change both the latency and the table counts.

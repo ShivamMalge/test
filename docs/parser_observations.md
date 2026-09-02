@@ -1,6 +1,13 @@
 # LightningParse Observations
 
-Observed against **lightningparse 0.4.1** (PyPI).
+Observed against **lightningparse 0.5.0** (PyPI), with differences from 0.4.1 noted inline.
+
+## What changed in 0.5.0
+Verified by diffing full parser output across both versions on the benchmark corpus:
+- **Pages gained `page_width` and `page_height`.**
+- **Section classification improved.** Blocks previously misfiled as `section_id: "header"` are now `body` with `block_role: "heading"`. On the synthetic corpus `header` blocks fell 60 -> 32; on the VTU document 2 -> 0, and `heading` roles rose 32 -> 35 and 19 -> 21 respectively.
+- **Table extraction is byte-for-byte unchanged.** Same 1 table / 3 rows on the synthetic corpus, same 0 tables on the VTU document, same contaminated cell. The table work is still outstanding.
+- **Parsing speed is unchanged.** An interleaved same-session A/B over three rounds gave 70.3 / 75.3 / 72.2 ms for 0.4.1 against 66.1 / 68.8 / 73.3 ms for 0.5.0 — indistinguishable.
 
 ## Observed schema
 `parse_pdf(path)` returns a JSON **string**, which when parsed contains two keys:
@@ -50,9 +57,9 @@ Table blocks have a **different shape**:
 ## Known issues / Notes
 - The parser returns a raw JSON string rather than a parsed dictionary. We must run `json.loads(raw_result)` inside the wrapper.
 - **Table blocks carry no `text`.** Reading `block["text"]` alone silently drops every table from the pipeline. `Chunker._block_text` renders `rows` into a markdown table instead.
-- **Table recall is far behind the alternatives — a known 0.4.1 limitation, planned for 0.5.0.** Across the 20-page benchmark corpus, pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1. In particular it found none of the six module comparison tables in the VTU document, emitting them as flattened text instead (`Module M1:Hardware Difficulty (1=Hardest) 4 Academic Importance Moderate ...`). The README's "Regression targets for 0.5.0" section records the exact per-signal baselines to compare against after the fix.
-- **Table extraction is partial, and this measurably costs RAG accuracy.** On the synthetic corpus, the header row and the first data row are emitted as ordinary text blocks, and only the remaining rows land in the `table` block. One `table` row also absorbed a stray cell of adjacent right-column prose. The data is recoverable but the row/column grouping is not exact — and because the resulting table chunk has no header cells, it carries no term that matches a query about its columns and is effectively unretrievable (rank 46 of 86 for the benchmark's table question). Attaching the preceding heading to a table chunk would be a downstream workaround; the fix belongs in row grouping.
+- **Table recall is far behind the alternatives — still open as of 0.5.0.** Across the 20-page benchmark corpus, pdfplumber and PyMuPDF each recovered 7 tables with intact header rows; LightningParse recovered 1. In particular it found none of the six module comparison tables in the VTU document, emitting them as flattened text instead (`Module M1:Hardware Difficulty (1=Hardest) 4 Academic Importance Moderate ...`). This is unchanged in 0.5.0; see the scorecard in the README.
+- **Table extraction is partial, and this measurably costs RAG accuracy (0.4.1 and 0.5.0 alike).** On the synthetic corpus, the header row and the first data row are emitted as ordinary text blocks, and only the remaining rows land in the `table` block. One `table` row also absorbed a stray cell of adjacent right-column prose. The data is recoverable but the row/column grouping is not exact — and because the resulting table chunk has no header cells, it carries no term that matches a query about its columns and is effectively unretrievable (rank 46 of 86 for the benchmark's table question). Attaching the preceding heading to a table chunk would be a downstream workaround; the fix belongs in row grouping.
 - **Spaces are sometimes dropped** between words on some documents (the VTU PDF extracts `StrategicAcademicMastery:An`). The chunker applies `wordninja` when a block's average token length exceeds 15 characters, and skips that repair for table blocks.
-- ASCII85-encoded content streams parse correctly in 0.4.1 (`tier: digital`, no OCR fallback), so the synthetic corpus no longer needs pre-cleaning.
+- ASCII85-encoded content streams parse correctly in 0.4.1 and 0.5.0 (`tier: digital`, no OCR fallback), so the synthetic corpus no longer needs pre-cleaning.
 - The GIL is released during parsing, which allows concurrent parsing if needed.
 - Reading order is preserved in the order of the blocks returned in the `blocks` array; the two-column synthetic corpus is reconstructed column-by-column rather than line-interleaved.

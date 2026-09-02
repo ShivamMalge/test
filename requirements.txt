@@ -1,4 +1,4 @@
-lightningparse==0.4.1
+lightningparse==0.5.0
 sentence-transformers
 faiss-cpu
 openai
